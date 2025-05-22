@@ -8,7 +8,6 @@ on:
 env:
   REGISTRY: ghcr.io
   USERNAME: lame-over
-  CR_PAT: Overbufer12
 
 jobs:
   build-and-push:
@@ -23,7 +22,7 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.USERNAME }}
-        password: ${{ secrets.CR_PAT }}
+        password: ${{ secrets.GITHUB_TOKEN }}  # Використовуємо вбудований токен
 
     - name: Build and push user-service image
       run: |
