@@ -22,7 +22,7 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.USERNAME }}
-        password: ${{ secrets.CR_PAT }}  # Використовуємо вбудований токен
+        password: ${{ secrets.YOUR_PAT_SECRET_NAME }}
 
     - name: Build and push user-service image
       run: |
