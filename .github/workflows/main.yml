@@ -22,7 +22,7 @@ jobs:
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.USERNAME }}
-        password: ${{ secrets.YOUR_PAT_SECRET_NAME }}
+        password: ${{ secrets.CR_PAT }}
 
     - name: Build and push user-service image
       run: |
