@@ -2,29 +2,30 @@ name: Build and Publish Docker Images
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 env:
   REGISTRY: ghcr.io
-  USERNAME: lame-over
+  USERNAME: lame-over  # Ваш особистий акаунт
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write  # Критично важливий дозвіл
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Log in to GitHub Container Registry
-      uses: docker/login-action@v2
+    - name: Login to GHCR
+      uses: docker/login-action@v3
       with:
         registry: ${{ env.REGISTRY }}
         username: ${{ env.USERNAME }}
-        password: ${{ secrets.GITHUB_TOKEN }}  # Використовуємо вбудований токен
+        password: ${{ secrets.CR_PAT }}  # Ваш PAT з дозволами
 
-    - name: Build and push user-service image
+    - name: Build and push
       run: |
         docker build -t ${{ env.REGISTRY }}/${{ env.USERNAME }}/user-service:latest ./user-service
         docker push ${{ env.REGISTRY }}/${{ env.USERNAME }}/user-service:latest
